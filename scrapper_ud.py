@@ -89,7 +89,7 @@ class WebScraper:
         except Exception as e:
             print(f"Error: {e}")
             # self.open_url(url=url)
-        self.driver.save_screenshot("debug.png")
+        # self.driver.save_screenshot("debug.png")
         time.sleep(1)
 
     def click_by_id(self, element_id: str) -> None:
