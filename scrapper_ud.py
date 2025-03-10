@@ -61,7 +61,7 @@ class WebScraper:
         # Note: This should be used with caution as it reduces security
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-popup-blocking")
-        # chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--headless=new")
 
         # Initialize the Chrome WebDriver with the specified options
         self.driver = uc.Chrome(use_subprocess=False,options=chrome_options)
@@ -82,12 +82,13 @@ class WebScraper:
         print(url)
         # Open a website
         # self.driver.get(url)
-        self.driver.set_page_load_timeout(5)  # Timeout after 10 seconds
+        self.driver.set_page_load_timeout(60)  # Timeout after 10 seconds
         try:
             self.driver.get(url)
 
         except Exception as e:
-            print(f"Error: {e}")
+            pass
+            # print(f"Error: {e}")
             # self.open_url(url=url)
         # self.driver.save_screenshot("debug.png")
         time.sleep(1)
@@ -144,6 +145,11 @@ class WebScraper:
 
         # Convert cookies to JSON format
         cookies_json = json.dumps(cookies, indent=4)
+        # Save to a JSON file
+        with open("cookies.json", "w") as file:
+            file.write(cookies_json)
+
+        print("Cookies saved to cookies.json")
         return cookies_json
 
     def load_cookies(self, cookies: str) -> None:
